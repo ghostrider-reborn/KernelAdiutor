@@ -134,7 +134,7 @@ public class AppSettings {
     }
 
     public static int getCoreCtlMinCpusBig(Context context) {
-        return Prefs.getInt(CORE_CTL_MIN_CPUS_BIG, 2, context);
+        return Prefs.getInt(CORE_CTL_MIN_CPUS_BIG, 0, context);
     }
 
     public static void saveCoreCtlMinCpusBig(int cores, Context context) {
