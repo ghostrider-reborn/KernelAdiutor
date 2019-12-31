@@ -45,9 +45,8 @@ public class CoreCtl {
     }
 
     public static final String CORE_CTL = "/sys/devices/system/cpu/cpu%d/core_ctl";
-    private static final String HCUBE = "/sys/devices/system/cpu/cpu%d/hcube";
 
-    private static final String ENABLE = "/hc_on";
+    private static final String DISABLE = "/disable";
     private static final String IS_BIG_CLUSTER = "/is_big_cluster";
     public static final String MIN_CPUS = "/min_cpus";
     private static final String BUSY_DOWN_THRESHOLD = "/busy_down_thres";
@@ -61,7 +60,6 @@ public class CoreCtl {
 
     {
         sFiles.add(CORE_CTL);
-        sFiles.add(HCUBE);
     }
 
     private CoreCtl() {
@@ -166,15 +164,15 @@ public class CoreCtl {
     }
 
     public void enable(boolean enable, Context context) {
-        run(Control.write(enable ? "1" : "0", PARENT + ENABLE), PARENT + ENABLE, context);
+        run(Control.write(enable ? "0" : "1", PARENT + DISABLE), PARENT + DISABLE, context);
     }
 
     public boolean isEnabled() {
-        return Utils.readFile(PARENT + ENABLE).equals("1");
+        return Utils.readFile(PARENT + DISABLE).equals("0");
     }
 
     public boolean hasEnable() {
-        return Utils.existFile(PARENT + ENABLE);
+        return Utils.existFile(PARENT + DISABLE);
     }
 
     public boolean supported() {
